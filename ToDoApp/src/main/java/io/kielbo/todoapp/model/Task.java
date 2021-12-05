@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.NotFound;
-
 @Entity
 public class Task {
 	@Id
@@ -17,7 +15,7 @@ public class Task {
 	private String description;
 	private boolean done;
 	
-	public Task() {}
+	public Task() { /* Empyty for spring purpose */ }
 	public String getDescription() {
 		return description;
 	}
