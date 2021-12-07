@@ -1,5 +1,6 @@
 package io.kielbo.todoapp.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -9,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,15 +33,32 @@ public class TaskController {
 		logger.warn("Exposing all the taska");
 		return ResponseEntity.ok(taskRepository.findAll());
 	}
-	
+
 	@GetMapping(value = "/tasks")
 	public ResponseEntity<List<Task>> readAllTasks(Pageable page) {
 		logger.warn("Custom paging");
 		return ResponseEntity.ok(taskRepository.findAll(page).getContent());
 	}
-	@GetMapping(value = "/tasks/{id}")
-	public ResponseEntity<?> updateTask(@RequestBody @Valid Task toUpdate){
+	@PutMapping(value = "/tasks/{id}")
+	public ResponseEntity<?> updateTask(@PathVariable int id,
+			@RequestBody @Valid Task toUpdate) {
+		if (!taskRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		toUpdate.setId(id);
 		taskRepository.save(toUpdate);
 		return ResponseEntity.noContent().build();
 	}
+	@GetMapping(value = "/tasks/{id}")
+	public ResponseEntity<Task> getTask(@PathVariable int id) {
+		return taskRepository.findById(id).map(task -> ResponseEntity.ok(task))
+				.orElse(ResponseEntity.notFound().build());
+	}
+	@PostMapping(value = "/tasks")
+	public ResponseEntity<?> createTask(@RequestBody @Valid Task postTask) {
+		taskRepository.save(postTask);
+		return ResponseEntity.created(URI.create("/" + postTask.getId()))
+				.body(postTask);
+	}
+
 }
