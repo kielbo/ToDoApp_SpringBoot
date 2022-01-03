@@ -1,12 +1,8 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: '/console'
-  datasource:
-    url: 'jdbc:h2:C:/Users/Maciej.Pytka/git/ToDoApp/ToDoApp/ToDoDb'
-    username: sa
-    password: 
+  profiles:
+    active: prod
+  main:
+    banner-mode: off
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
