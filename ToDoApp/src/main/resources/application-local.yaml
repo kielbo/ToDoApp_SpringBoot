@@ -4,11 +4,11 @@ spring:
       enabled: true
       path: '/console'
   datasource:
-#    url: 'jdbc:h2:C:/Users/Maciej.Pytka/git/ToDoApp/ToDoApp/ToDoDb'
-    url: 'jdbc:h2:C:/Users/Pyton/git/ToDoApp_SpringBoot/ToDoApp/toDoDb'
+    url: 'jdbc:h2:C:/Users/Maciej.Pytka/git/ToDoApp/ToDoApp/ToDoDb'
+ #   url: 'jdbc:h2:C:/Users/Pyton/git/ToDoApp_SpringBoot/ToDoApp/toDoDb'
     username: sa
     password: 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
 my.prop: 'profile:local'
