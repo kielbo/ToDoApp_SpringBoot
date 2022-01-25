@@ -2,12 +2,12 @@ package io.kielbo.todoapp.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Embeddable;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
-@MappedSuperclass
-public abstract class BaseAuditableEntity {
+@Embeddable
+public class Audit {
 	private LocalDateTime createdOn;
 	private LocalDateTime updatedOn;
 
@@ -17,7 +17,7 @@ public abstract class BaseAuditableEntity {
 	}
 
 	@PreUpdate
-	void preUpdate() {
+	void preMerge() {
 		updatedOn = LocalDateTime.now();
 	}
 
