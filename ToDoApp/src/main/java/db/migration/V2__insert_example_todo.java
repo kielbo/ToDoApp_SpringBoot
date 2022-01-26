@@ -9,6 +9,6 @@ public class V2__insert_example_todo extends BaseJavaMigration {
 
 	public void migrate(Context context) {
 		new JdbcTemplate(new SingleConnectionDataSource(context.getConnection(), true))
-				.execute("INSERT INTO Task (description, done) values ('flyway to gowno', true );");
+				.execute("INSERT INTO Tasks (description, done) values ('flyway to gowno', true );");
 	}
 }

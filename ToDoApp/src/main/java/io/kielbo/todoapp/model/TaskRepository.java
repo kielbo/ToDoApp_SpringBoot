@@ -12,5 +12,5 @@ public interface TaskRepository {
 	public Task save(Task entitiy);
 	public Page<Task> findAll(Pageable page);
 	public boolean existsById(Integer id);
-
+	boolean existsByDoneIsFalseAndGroup_id(Integer groupId);
 }
