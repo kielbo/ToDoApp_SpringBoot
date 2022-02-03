@@ -12,10 +12,13 @@ import io.kielbo.todoapp.model.TaskGroupRepository;
 public interface SqlTaskGroupRepository extends JpaRepository<TaskGroup, Integer>, TaskGroupRepository {
 
 	@Override
-	@Query("from TaskGroup g join fetch g.tasks")
-	default List<TaskGroup> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@Query("select distinct g from TaskGroup g join fetch g.tasks")
+	List<TaskGroup> findAll();
+
+	@Override
+	boolean existsByDoneIsFalseAndProject_Id(Integer id);
+	
+	
+	
 
 }

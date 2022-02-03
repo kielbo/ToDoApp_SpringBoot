@@ -31,6 +31,11 @@ public class Task extends TaskBase{
 	public Task() {
 		/* Empty for spring purpose */ }
 	
+	public Task(String description, LocalDateTime deadline2) {
+		this.deadline = deadline2;
+		this.description = description;
+	}
+
 	public TaskGroup getGroup() {
 		return group;
 	}
